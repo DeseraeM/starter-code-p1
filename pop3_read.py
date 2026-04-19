@@ -27,14 +27,14 @@ if not response.startswith('+OK'):
 # Note: the POP3 spec requires every command to end with \r\n, not just \n.
 
 # Log in with USER and PASS commands.
-s.send(f"USER {username} \r\n".encode())
+s.send(f"USER {username}\r\n".encode())
 data = s.recv(BUFFER_SIZE)
 response = data.decode('utf-8')
 
 if not response.startswith('+OK'):
     raise Exception('+OK not received from server.')
 
-s.send(f"PASS {PASSWORD} \r\n".encode())
+s.send(f"PASS {PASSWORD}\r\n".encode())
 data = s.recv(BUFFER_SIZE)
 response = data.decode('utf-8')
 

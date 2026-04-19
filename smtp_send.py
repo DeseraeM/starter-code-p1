@@ -15,7 +15,7 @@ to_addr   = sys.argv[4]
 subject   = sys.argv[5]
 
 # Read the email body from standard input.
-body = sys.stdin.read()
+body = sys.stdin.read('\n, r\n')
 
 # Establish a TCP connection with the SMTP server.
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -63,7 +63,7 @@ if not response.startswith('354'):
 # Send message headers and body.
 s.send(f"Subject: {subject} \r\n".encode())
 s.send(f"\r\n".encode())
-s.send(f"{body} \r\n".encode())
+s.send(f"{body.strip()}\r\n".encode())
 
 
 # End message with a line containing only a period.
