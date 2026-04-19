@@ -72,7 +72,7 @@ for d in ldata:
     ndata = s.recv(BUFFER_SIZE)
     rdata = []
     response = '' 
-    while '.' not in response:
+    while '\r\n.\r\n' not in response:
         rdata.append(s.recv(BUFFER_SIZE))
         new =rdata[-1] 
         response = b''.join(rdata).decode('utf-8')
