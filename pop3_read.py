@@ -76,7 +76,7 @@ for d in ldata:
         rdata.append(s.recv(BUFFER_SIZE))
         new =rdata[-1] 
         response = new.decode('utf-8')
-    print(rdata.decode())
+    print(new.decode())
     print("---")
 s.send('QUIT\r\n'.encode())
 
