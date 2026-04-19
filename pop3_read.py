@@ -34,8 +34,6 @@ response = data.decode('utf-8')
 if not response.startswith('+OK'):
     raise Exception('+OK not received from server.')
 
-
-
 s.send(f"PASS {PASSWORD} \r\n".encode())
 data = s.recv(BUFFER_SIZE)
 response = data.decode('utf-8')
@@ -63,9 +61,6 @@ while '.' not in response:
     last = ldata[-1]
     response = last.decode('utf-8')
 
-
-
-
 # Retrieve and print each message with the RETR command.
 # The same caveat about multi-line responses applies here.
 # Print messages separated by a line containing only '---'.
@@ -75,13 +70,15 @@ for d in ldata:
     newdata = d.decode('utf-8')
     s.send(f"RETR {newdata.split()[0]} \r\n".encode())
     ndata = s.recv(BUFFER_SIZE)
+    rdata = []
     response = '' 
     while '.' not in response:
-        data = s.recv(BUFFER_SIZE)
-        response = data.decode('utf-8')
-    print(data.decode())
+        rdata.append(s.recv(BUFFER_SIZE))
+        new =rdata[-1] 
+        response = new.decode('utf-8')
+    print(rdata.decode())
     print("---")
-s.send('QUIT \r\n'.encode())
+s.send('QUIT\r\n'.encode())
 
 
 # Close the socket when finished.

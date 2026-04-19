@@ -68,13 +68,14 @@ s.send(f"{body} \r\n".encode())
 
 # End message with a line containing only a period.
 s.send('.\r\n'.encode())
+response = ''
 while '250' not in response:
     response = s.recv(BUFFER_SIZE).decode()
 
 if not response.startswith('250'):
         raise Exception('250 reply not received from server.')
 # Send QUIT command.
-s.send ('QUIT \r\n'.encode()) #might not need the .encode() 
+s.send ('QUIT\r\n'.encode()) #might not need the .encode() 
 
 
 # Close the socket when finished.
