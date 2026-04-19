@@ -61,7 +61,7 @@ if not response.startswith('250'):
     raise Exception('250 reply not received from server.')
 
 # Send message headers and body.
-s.send('Subject:'.encode() + Subject.encode() '\r\n')
+s.send(f"Subject: {subject} \r\n".encode())
 
 
 # End message with a line containing only a period.
