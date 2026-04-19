@@ -50,7 +50,7 @@ if not response.startswith('+OK'):
 # capture the full response — depending on the network, the entire response
 # may arrive in a single recv() or be split across several. Accumulate data
 # until you have seen the terminator.
-s.send('LIST \r\n'.encode())
+s.send('LIST\r\n'.encode())
 data = s.recv(BUFFER_SIZE)
 response = data.decode('utf-8')
 
@@ -86,8 +86,3 @@ s.send('QUIT \r\n'.encode())
 
 # Close the socket when finished.
 s.close()
-
-for d in ldata:
-    if d.encode() == '.':
-        continue
-    else: newdata = d.decode('utf-8')

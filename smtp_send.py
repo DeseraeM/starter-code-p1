@@ -40,7 +40,7 @@ if not response.startswith('250'):
     raise Exception('250 reply not received from server.')
 
 # Send MAIL FROM command.
-s.send('MAIL FROM: < '.encode() + from_addr.encode() + '>\r\n'.encode())
+s.send(f"MAIL FROM: <{from_addr}>\r\n".encode())
 response = s.recv(BUFFER_SIZE).decode()
 if not response.startswith('250'):
     raise Exception('250 reply not received from server.')
@@ -48,24 +48,29 @@ if not response.startswith('250'):
 
 
 # Send RCPT TO command.
-s.send ('RCPT TO: < '.encode() + to_addr.encode() + '>\r\n'.encode())
+s.send (f"RCPT TO: <{to_addr}>\r\n".encode())
 response = s.recv(BUFFER_SIZE).decode()
 if not response.startswith('250'):
     raise Exception('250 reply not received from server.')
 
 
 # Send DATA command.
-s.send ('DATA client\r\n'.encode())
+s.send ('DATA\r\n'.encode())
 response = s.recv(BUFFER_SIZE).decode()
-if not response.startswith('250'):
-    raise Exception('250 reply not received from server.')
+if not response.startswith('354'):
+    raise Exception('354 reply not received from server.')
 
 # Send message headers and body.
 s.send(f"Subject: {subject} \r\n".encode())
+s.send(f"\r\n".encode())
+s.send(f"{body} \r\n".encode())
 
 
 # End message with a line containing only a period.
-s.send('. \r\n'.encode)
+s.send('.\r\n'.encode())
+response = s.recv(BUFFER_SIZE).decode()
+if not response.startswith('250'):
+    raise Exception('250 reply not received from server.')
 
 # Send QUIT command.
 s.send ('QUIT \r\n'.encode()) #might not need the .encode() 
