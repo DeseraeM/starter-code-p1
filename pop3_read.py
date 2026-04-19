@@ -58,7 +58,7 @@ if not response.startswith('+OK'):
     raise Exception('+OK not received from server.')
 ldata = []
 response = '' 
-while not response.startswith('.'):
+while '.' not in response:
     ldata.append(s.recv(BUFFER_SIZE))
     last = ldata[-1]
     response = last.decode('utf-8')
@@ -76,7 +76,7 @@ for d in ldata:
     s.send(f"RETR {newdata.split()[0]} \r\n".encode())
     ndata = s.recv(BUFFER_SIZE)
     response = '' 
-    while not response.startswith('.'):
+    while '.' not in response:
         data = s.recv(BUFFER_SIZE)
         response = data.decode('utf-8')
     print(data.decode())
