@@ -68,8 +68,7 @@ for d in ldata:
     if d.decode() == '.':
         continue
     newdata = d.decode('utf-8')
-    s.send(f"RETR {newdata.split()[0]} \r\n".encode())
-    ndata = s.recv(BUFFER_SIZE)
+    s.send(f"RETR {newdata.split()[0]}\r\n".encode())
     rdata = []
     response = '' 
     while '\r\n.\r\n' not in response:
