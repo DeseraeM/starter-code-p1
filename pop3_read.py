@@ -50,16 +50,12 @@ if not response.startswith('+OK'):
 # until you have seen the terminator.
 s.send('LIST\r\n'.encode())
 ldata = []
-response = data.decode('utf-8')
-
-if not response.startswith('+OK'):
-    raise Exception('+OK not received from server.')
-#ldata = []
 response = '' 
 while '\r\n.\r\n' not in response:
     ldata.append(s.recv(BUFFER_SIZE))
-    last = ldata[-1]
     response = b''.join(ldata).decode('utf-8')
+if not response.startswith('+OK'):
+    raise Exception('+OK not received from server.')
 
 # Retrieve andl print each message with the RETR command.
 # The same caveat about multi-line responses applies here.
@@ -73,7 +69,7 @@ for d in new_response.splitlines()[1:]:
     response = '' 
     while '\r\n.\r\n' not in response:
         rdata.append(s.recv(BUFFER_SIZE))
-        new =rdata[-1] 
+        #new =rdata[-1] 
         response = b''.join(rdata).decode('utf-8')
     print(b''.join(rdata).decode('utf-8'))
     print("---")
