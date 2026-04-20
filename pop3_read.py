@@ -59,9 +59,9 @@ response = ''
 while '\r\n.\r\n' not in response:
     ldata.append(s.recv(BUFFER_SIZE))
     last = ldata[-1]
-    response = last.decode('utf-8')
+    response = b''.join(ldata).decode('utf-8')
 
-# Retrieve and print each message with the RETR command.
+# Retrieve andl print each message with the RETR command.
 # The same caveat about multi-line responses applies here.
 # Print messages separated by a line containing only '---'.
 for d in ldata:
