@@ -68,8 +68,6 @@ s.send(f"{body.strip()}\r\n".encode())
 
 # End message with a line containing only a period.
 s.send('.\r\n'.encode())
-#response = ''
-#while '250' not in response:
 response = s.recv(BUFFER_SIZE).decode()
 if not response.startswith('250'):
         raise Exception('250 reply not received from server.')

@@ -65,7 +65,7 @@ while '\r\n.\r\n' not in response:
 # The same caveat about multi-line responses applies here.
 # Print messages separated by a line containing only '---'.
 new_response = b''.join(ldata).decode('utf-8')
-for d in new_response.split()[1:]
+for d in new_response.split()[1:]:
     if d.splrip() == '.'
         break 
     s.send(f"RETR {newdata.split()[0]}\r\n".encode())
