@@ -56,7 +56,7 @@ if not response.startswith('+OK'):
     raise Exception('+OK not received from server.')
 ldata = []
 response = '' 
-while '.' not in response:
+while '\r\n.\r\n' not in response:
     ldata.append(s.recv(BUFFER_SIZE))
     last = ldata[-1]
     response = last.decode('utf-8')
