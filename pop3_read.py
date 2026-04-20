@@ -49,12 +49,12 @@ if not response.startswith('+OK'):
 # may arrive in a single recv() or be split across several. Accumulate data
 # until you have seen the terminator.
 s.send('LIST\r\n'.encode())
-data = s.recv(BUFFER_SIZE)
+ldata = []
 response = data.decode('utf-8')
 
 if not response.startswith('+OK'):
     raise Exception('+OK not received from server.')
-ldata = []
+#ldata = []
 response = '' 
 while '\r\n.\r\n' not in response:
     ldata.append(s.recv(BUFFER_SIZE))
@@ -65,10 +65,10 @@ while '\r\n.\r\n' not in response:
 # The same caveat about multi-line responses applies here.
 # Print messages separated by a line containing only '---'.
 new_response = b''.join(ldata).decode('utf-8')
-for d in new_response.split()[1:]:
-    if d.split() == '.':
+for d in new_response.splitlines()[1:]:
+    if d.strip() == '.':
         break 
-    s.send(f"RETR {newdata.split()[0]}\r\n".encode())
+    s.send(f"RETR {d.split()[0]}\r\n".encode())
     rdata = []
     response = '' 
     while '\r\n.\r\n' not in response:
