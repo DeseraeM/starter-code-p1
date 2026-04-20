@@ -64,10 +64,10 @@ while '\r\n.\r\n' not in response:
 # Retrieve andl print each message with the RETR command.
 # The same caveat about multi-line responses applies here.
 # Print messages separated by a line containing only '---'.
-for d in ldata:
-    if d.decode() == '.':
-        continue
-    newdata = d.decode('utf-8')
+new_response = b''.join(ldata).decode('utf-8')
+for d in new_response.split()[1:]
+    if d.splrip() == '.'
+        break 
     s.send(f"RETR {newdata.split()[0]}\r\n".encode())
     rdata = []
     response = '' 
